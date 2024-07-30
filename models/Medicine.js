@@ -1,45 +1,45 @@
 import mongoose from "mongoose";
 
 const MedicineSchema = new mongoose.Schema({
-    userId:{
+  userId: {
+    type: String,
+    required: true,
+  },
+  medicineName: {
+    type: String,
+    required: true,
+  },
+  selectedMedicine: {
+    type: String,
+    enum: ['Capsule', 'Tablets', 'Injection', 'Syrup'], 
+    required: true,
+  },
+  amount: {
+    type: Number,
+    required: true,
+  },
+  frequency: {
+    type: String,
+    required: true
+  },
+  doses: [
+    {
+      time: {
         type: String,
-        unique:true,
         required: true
-    },
-    medicineName: {
-        type: String,
-        required: true
-    },
-    selectedMedicine: {
-        type: String,
-        required: true
-    },
-    amount: {
-        type: Number,
-        required: true
-    },
-    frequency:{
-        type: String,
-        required: true
-    },
-    times: {
-        type: String,
-        required: true
-    },
-    selectedTab:{
+      },
+      mealTiming: {
         type: Boolean,
-        required: true
-    },
-    reminder:{
-        type: String,
-        required: true
+        default: false
+      }
     }
+  ],
+  reminder: {
+    type: String,
+    required: true,
+  },
 });
 
-const Medicine = mongoose.model('Medicine', MedicineSchema);
+const Medicine = mongoose.model("Medicine", MedicineSchema);
 
 export default Medicine;
-
-
-
-
