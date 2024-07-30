@@ -8,18 +8,20 @@ const getAllMedicine = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-const saveMedicine = async (req, res) => {
-  try {
-    console.log(req.body);
 
+
+
+
+const saveMedicine = async (req, res) => {
+  console.log(req.body);
+  try {
     const {
       userId,
       medicineName,
       selectedMedicine,
       amount,
       frequency,
-      times,
-      selectedTab,
+      doses,
       reminder,
     } = req.body;
     if (
@@ -28,8 +30,7 @@ const saveMedicine = async (req, res) => {
       !selectedMedicine ||
       !amount ||
       !frequency ||
-      !times ||
-      !selectedTab ||
+      !doses  ||
       !reminder
     ) {
       return res.status(400).json({ message: "Data not provided" });
@@ -44,8 +45,7 @@ const saveMedicine = async (req, res) => {
         selectedMedicine,
         amount,
         frequency,
-        times,
-        selectedTab,
+        doses,
         reminder,
       });
     }
