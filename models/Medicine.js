@@ -11,28 +11,29 @@ const MedicineSchema = new mongoose.Schema({
   },
   selectedMedicine: {
     type: String,
-    enum: ['Capsule', 'Tablets', 'Injection', 'Syrup'], 
+    enum: ["Capsule", "Tablets", "Injection", "Syrup"],
     required: true,
   },
   amount: {
     type: Number,
     required: true,
+    min: 0,
   },
   frequency: {
     type: String,
-    required: true
+    required: true,
   },
   doses: [
     {
       time: {
         type: String,
-        required: true
+        required: true,
       },
       mealTiming: {
         type: Boolean,
-        default: false
-      }
-    }
+        default: false,
+      },
+    },
   ],
   reminder: {
     type: String,
