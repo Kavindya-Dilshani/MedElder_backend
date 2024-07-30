@@ -3,17 +3,20 @@ import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.routes.js";
 import medicineRoutes from "./routes/medicine.routes.js";
+import dotenv from "dotenv";
 
+// Load environment variables from .env file
+dotenv.config();
+// Store environment variables
+const DATABASE_URL = process.env.DATABASE_URL;
+const port = process.env.PORT || 5002;
+
+// Create an instance of the Express application
 const app = express();
-
-/** server configuration */
-const config = {
-  serverPort: "5001",
-};
 
 // CORS options
 const corsOptions = {
-  origin: [config.frontEndUrl],
+  origin: ["frontEndUrl"],
   methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE"],
   credentials: true,
 };
@@ -35,20 +38,19 @@ app.use(function (req, res, next) {
 
 /** Mongo db connection */
 mongoose
-  .connect("mongodb://127.0.0.1:27017/MedElderDB")
-  .then(() => console.log("connect to the DB"))
-  .catch((error) => console.log("failed to connect mongo db", error));
+  .connect(`${DATABASE_URL}`)
+  .then(() => console.log("Connected to the Database"))
+  .catch((error) => console.log("Failed to connect Database", error));
 
 app.get("/", (req, res) => {
-  res.json({ message: "Hello from Server" });
+  res.json({ message: "Hi, I'm alive!" });
 });
 
 /** routes */
 authRoutes(app);
 medicineRoutes(app);
 
-/** set port, listen to requests */
-const PORT = config.serverPort || 5001;
-app.listen(PORT, () => {
-  console.log(`server is running on PORT ${PORT}`);
+/** listen to requests */
+app.listen(port, () => {
+  console.log(`Server is running on PORT ${port}`);
 });
