@@ -6,4 +6,6 @@ export default function authRoutes(app) {
 
   // sign up
   app.post(`/api/auth/login`, authController.login);
+
+  
 }

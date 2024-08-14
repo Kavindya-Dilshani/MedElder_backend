@@ -76,6 +76,8 @@ const login = async (req, res, next) => {
   }
 };
 
-const authController = { signUp, login };
+
+
+const authController = { signUp, login};
 
 export default authController;
