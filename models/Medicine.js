@@ -31,7 +31,7 @@ const MedicineSchema = new mongoose.Schema({
       },
       mealTiming: {
         type: Boolean,
-        default: false,
+        default: false, 
       },
     },
   ],
