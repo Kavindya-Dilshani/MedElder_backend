@@ -1,4 +1,5 @@
 
+
 import Medicine from "../models/Medicine.js";
 
 const getAllMedicine = async (req, res) => {
@@ -58,6 +59,31 @@ const saveMedicine = async (req, res) => {
   }
 };
 
-const medicineController = { getAllMedicine, saveMedicine };
+// Function to delete a medicine entry
+const deleteMedicine = async (req, res) => {
+  const { medicineId } = req.params;
+
+  if (!medicineId) {
+    return res.status(400).json({ message: "Medicine ID required" });
+  }
+
+  try {
+    // Find and delete the medicine document by ID
+    const deletedMedicine = await Medicine.findByIdAndDelete(medicineId);
+
+    if (!deletedMedicine) {
+      return res.status(404).json({ message: "Medicine not found" });
+    }
+
+    res.json({ message: "Medicine deleted successfully", medicine: deletedMedicine });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+
+
+const medicineController = { getAllMedicine, saveMedicine, deleteMedicine };
 
 export default medicineController;
